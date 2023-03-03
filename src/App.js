@@ -1,48 +1,38 @@
-import './App.css';
-import { useEffect, useState } from 'react';
-import getUserData from './api/dataCall';
+import { Typography } from "@mui/material";
+import { Box } from "@mui/system";
+import { useEffect, useState } from "react";
+import getUserData from "./api/dataCall";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+
+import Homepage from "./pages/Homepage";
+import Authpage from "./pages/Authpage";
+import Appbar from "./components/appbar/Appbar";
+import BottomNavBar from "./components/bottomNavBar/BottomNavBar";
 
 function App() {
-  const [ users, setUsers ] = useState()
+  const [users, setUsers] = useState();
 
-  async function fetchdata(){
+  async function fetchdata() {
     let data = await getUserData();
 
-    setUsers(data.data.users)
+    setUsers(data.data.users);
   }
 
   useEffect(() => {
     fetchdata();
   }, []);
-  
 
   return (
-    <div className="App">
-      <header className="App-header">
-        <h1>This is a PWA testing</h1>
-
-        {users?
-        <div style={{
-          border:"1px solid white"
-        }}>
-          {users.map((data)=>{
-            return(
-              <div style={{
-                border:"1px solid white"
-              }} key={data.id}>
-                <h3>Name: {data.firstName} {data.lastName}</h3>
-                <p>Age: {data.age}</p>
-              </div>
-            )
-          })}
-        </div>:
-        <div>
-          No users
-        </div>
-        }
-
-      </header>
-    </div>
+    <Box sx={{
+      height: "100vh"
+    }}>
+      <Appbar />
+      <Routes>
+        <Route path="/" element={<Homepage />} />
+        <Route path="/auth" element={<Authpage />} />
+      </Routes>
+      {/* <BottomNavBar /> */}
+    </Box>
   );
 }
 
