@@ -12,10 +12,13 @@ import {
   HomeOutlined,
   ExploreOutlined,
   FavoriteBorderOutlined,
-  AccountCircleOutlined
+  AccountCircleOutlined,
 } from "@mui/icons-material";
-import AddAPhotoOutlinedIcon from '@mui/icons-material/AddAPhotoOutlined';
+import AddAPhotoOutlinedIcon from "@mui/icons-material/AddAPhotoOutlined";
 import { Link } from "react-router-dom";
+import Tooltip from "@mui/material/Tooltip";
+import Fade from "@mui/material/Fade";
+import Zoom from "@mui/material/Zoom";
 
 const StyledFabBottom = styled(Fab)({
   position: "absolute",
@@ -37,22 +40,22 @@ const StyledFabTop = styled(Fab)({
 const styledFabDesign = {
   backgroundColor: "error.main",
   "&:hover": {
-  backgroundColor: "secondary.main",
-  }
-}
+    backgroundColor: "secondary.main",
+  },
+};
 
 const redWhite = {
   bgcolor: "primary.main",
 };
 
 const icon = {
-  color: "white.main",
+  color: "error.main",
   fontSize: "1.8rem",
 };
 
 const iconStyle = {
   color: "warning.main",
-  transition: ".2s ease-in-out",
+  transition: ".1s ease-in-out",
   "&:hover": {
     bgcolor: "warning.main",
     color: "primary.main",
@@ -88,10 +91,17 @@ export default function Appbar() {
           <BottomNavigationAction
             icon={
               <Link to="/" style={removeTextDecoration}>
-                <Box sx={iconStyle}>
-                  <HomeOutlined sx={icon} />
-                  <Typography>Home</Typography>
-                </Box>
+                <Tooltip
+                  title="Home"
+                  sx={{ display: { xs: 'none', sm: 'none', md: 'block' } }}
+                >
+                  <Box sx={iconStyle}>
+                    <HomeOutlined sx={icon} />
+                    <Typography sx={{ display: { md: "none" } }}>
+                      Home
+                    </Typography>
+                  </Box>
+                </Tooltip>
               </Link>
             }
           />
@@ -122,7 +132,7 @@ export default function Appbar() {
               </StyledFabTop>
             }
             sx={{
-              display: { xs: "none", md:"block" },
+              display: { xs: "none", md: "block" },
             }}
           />
           <BottomNavigationAction
