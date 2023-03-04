@@ -2,35 +2,22 @@ import * as React from "react";
 import { styled } from "@mui/material/styles";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
-import CssBaseline from "@mui/material/CssBaseline";
-import Toolbar from "@mui/material/Toolbar";
-import Typography from "@mui/material/Typography";
-import IconButton from "@mui/material/IconButton";
-import Paper from "@mui/material/Paper";
 import Fab from "@mui/material/Fab";
-import List from "@mui/material/List";
-import ListItem from "@mui/material/ListItem";
-import ListItemAvatar from "@mui/material/ListItemAvatar";
-import ListItemText from "@mui/material/ListItemText";
-import ListSubheader from "@mui/material/ListSubheader";
-import Avatar from "@mui/material/Avatar";
-import MenuIcon from "@mui/icons-material/Menu";
-import AddIcon from "@mui/icons-material/Add";
-import SearchIcon from "@mui/icons-material/Search";
-import MoreIcon from "@mui/icons-material/MoreVert";
-import useScrollTrigger from '@mui/material/useScrollTrigger';
-
-import { BottomNavigation, BottomNavigationAction } from "@mui/material";
+import {
+  BottomNavigation,
+  BottomNavigationAction,
+  Typography,
+} from "@mui/material";
 import {
   HomeOutlined,
   ExploreOutlined,
   FavoriteBorderOutlined,
-  AccountCircleOutlined,
+  AccountCircleOutlined
 } from "@mui/icons-material";
-
+import AddAPhotoOutlinedIcon from '@mui/icons-material/AddAPhotoOutlined';
 import { Link } from "react-router-dom";
 
-const StyledFab = styled(Fab)({
+const StyledFabBottom = styled(Fab)({
   position: "absolute",
   zIndex: 1,
   top: -30,
@@ -38,6 +25,45 @@ const StyledFab = styled(Fab)({
   right: 0,
   margin: "0 auto",
 });
+const StyledFabTop = styled(Fab)({
+  position: "absolute",
+  zIndex: 1,
+  top: 40,
+  left: 0,
+  right: 0,
+  margin: "0 auto",
+});
+
+const styledFabDesign = {
+  backgroundColor: "error.main",
+  "&:hover": {
+  backgroundColor: "secondary.main",
+  }
+}
+
+const redWhite = {
+  bgcolor: "primary.main",
+};
+
+const icon = {
+  color: "white.main",
+  fontSize: "1.8rem",
+};
+
+const iconStyle = {
+  color: "warning.main",
+  transition: ".2s ease-in-out",
+  "&:hover": {
+    bgcolor: "warning.main",
+    color: "primary.main",
+    padding: "1rem",
+    borderRadius: "15px",
+  },
+};
+
+const removeTextDecoration = {
+  textDecoration: "none",
+};
 
 export default function Appbar() {
   const [value, setValue] = React.useState(0);
@@ -47,35 +73,77 @@ export default function Appbar() {
   };
 
   return (
-    <Box>
+    <Box sx={{ p: { xs: "0", md: "2rem" } }}>
       <AppBar
         value={value}
         onChange={handleChange}
-        showLabels
         position="fixed"
-        color="primary"
         sx={{
+          p: "1rem",
           top: { xs: "auto", md: 0 },
           bottom: { xs: 0, md: "auto" },
         }}
       >
-        <BottomNavigation 
-        value={value} 
-        onChange={handleChange} 
-        showLabels>
-            <Link to="/">
-          <BottomNavigationAction label="Home" icon={<HomeOutlined />}/>
-            </Link>
-            <Link to="/auth">
-          <BottomNavigationAction label="Explore" icon={<ExploreOutlined />} />
-            </Link>
+        <BottomNavigation value={value} onChange={handleChange} sx={redWhite}>
           <BottomNavigationAction
-            label="Favorites"
-            icon={<FavoriteBorderOutlined />}
+            icon={
+              <Link to="/" style={removeTextDecoration}>
+                <Box sx={iconStyle}>
+                  <HomeOutlined sx={icon} />
+                  <Typography>Home</Typography>
+                </Box>
+              </Link>
+            }
           />
           <BottomNavigationAction
-            label="Profile"
-            icon={<AccountCircleOutlined />}
+            icon={
+              <Link to="/auth" style={removeTextDecoration}>
+                <Box sx={iconStyle}>
+                  <ExploreOutlined sx={icon} />
+                  <Typography>Explore</Typography>
+                </Box>
+              </Link>
+            }
+          />
+          <BottomNavigationAction
+            icon={
+              <StyledFabBottom sx={styledFabDesign}>
+                <AddAPhotoOutlinedIcon sx={icon} />
+              </StyledFabBottom>
+            }
+            sx={{
+              display: { md: "none" },
+            }}
+          />
+          <BottomNavigationAction
+            icon={
+              <StyledFabTop sx={styledFabDesign}>
+                <AddAPhotoOutlinedIcon sx={icon} />
+              </StyledFabTop>
+            }
+            sx={{
+              display: { xs: "none", md:"block" },
+            }}
+          />
+          <BottomNavigationAction
+            icon={
+              <Link to="/page3" style={removeTextDecoration}>
+                <Box sx={iconStyle}>
+                  <FavoriteBorderOutlined sx={icon} />
+                  <Typography>Favourite</Typography>
+                </Box>
+              </Link>
+            }
+          />
+          <BottomNavigationAction
+            icon={
+              <Link to="/page4" style={removeTextDecoration}>
+                <Box sx={iconStyle}>
+                  <AccountCircleOutlined sx={icon} />
+                  <Typography>Profile</Typography>
+                </Box>
+              </Link>
+            }
           />
         </BottomNavigation>
       </AppBar>
